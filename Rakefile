@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "payments-pl"
-    gem.summary = %Q{Simple gem for payments via platnosci.pl}
-    gem.description = %Q{Simple gem for payments via platnosci.pl}
+    gem.summary = %Q{Simple library for payments via platnosci.pl}
+    gem.description = %Q{Simple library for payments via platnosci.pl}
     gem.email = "m.mlozniak@gmail.com"
     gem.homepage = "http://github.com/ronin/payments-pl"
     gem.authors = ["Michał Młoźniak"]
@@ -50,13 +50,3 @@ YARD::Rake::YardocTask.new do |t|
 
   t.options += ['--title', "payments-pl #{version}"]
 end
-
-#require 'rake/rdoctask'
-#Rake::RDocTask.new do |rdoc|
-#  version = File.exist?('VERSION') ? File.read('VERSION') : ""
-
-#  rdoc.rdoc_dir = 'rdoc'
-#  rdoc.title = "payments-pl #{version}"
-#  rdoc.rdoc_files.include('README*')
-#  rdoc.rdoc_files.include('lib/**/*.rb')
-#end
