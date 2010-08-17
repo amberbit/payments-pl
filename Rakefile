@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "payments-pl"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Simple gem for payments via platnosci.pl}
+    gem.description = %Q{Simple gem for payments via platnosci.pl}
     gem.email = "m.mlozniak@gmail.com"
     gem.homepage = "http://github.com/ronin/payments-pl"
     gem.authors = ["Michał Młoźniak"]
@@ -42,12 +42,21 @@ task :test => :check_dependencies
 
 task :default => :test
 
-require 'rake/rdoctask'
-Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
+require 'yard'
+require 'yard/rake/yardoc_task'
 
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "payments-pl #{version}"
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
+YARD::Rake::YardocTask.new do |t|
+  version = File.exist?('VERSION') ? File.read('VERSION') : ''
+
+  t.options += ['--title', "payments-pl #{version}"]
 end
+
+#require 'rake/rdoctask'
+#Rake::RDocTask.new do |rdoc|
+#  version = File.exist?('VERSION') ? File.read('VERSION') : ""
+
+#  rdoc.rdoc_dir = 'rdoc'
+#  rdoc.title = "payments-pl #{version}"
+#  rdoc.rdoc_files.include('README*')
+#  rdoc.rdoc_files.include('lib/**/*.rb')
+#end

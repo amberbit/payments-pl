@@ -1,16 +1,93 @@
 = payments-pl
 
-Description goes here.
+Simple library for handling payments via platnosci.pl
 
-== Note on Patches/Pull Requests
- 
-* Fork the project.
-* Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a
-  future version unintentionally.
-* Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
-* Send me a pull request. Bonus points for topic branches.
+== Features
+
+* Simple configuration (multiple POS-es)
+* Transactions: create, get state, confirm, cancel
+* View helper for generating payment form
+
+== Installation
+
+Install gem:
+
+  sudo gem install payments-pl
+
+And add it n your environment.rb file:
+
+  config.gem 'payments-pl', :lib => 'payments_pl'
+
+== Configuration
+
+First add POS informations in config/payments.yml file:
+
+  bank:
+    pos_id: XXX
+    pos_auth_key: XXX
+    key1: XXX
+    key2: XXX
+    type: express_gateway
+
+  sms:
+    pos_id: XXX
+    pos_auth_key: XXX
+    key1: XXX
+    key2: XXX
+    type: sms_premium
+
+Next add some routes so platnosci.pl can send messages to your application:
+
+  map.connect '/payments/ok',     :controller => 'payments', :action => 'ok'
+  map.connect '/payments/error',  :controller => 'payments', :action => 'error'
+  map.connect '/payments/report', :controller => 'payments', :action => 'report'
+
+These urls must be the same as those you entered on platnosci.pl site.
+
+== Usage
+
+Creating new transaction in controller:
+
+  def some_action
+    @transaction = Payments['bank'].new_transaction(:amount => 100, :desc => 'Abonament', :client_ip => request.remote_addr, :js => '0')
+  end
+
+Rendering payment form:
+
+  - form_tag @transaction.new_url do
+    = transaction_hidden_fields @transaction
+    = submit_tag 'Pay'
+
+Controller for receiving messages from platnosci.pl:
+
+  class PaymentsController < ApplicationController
+    skip_before_filter :verify_authenticity_token
+
+    def error
+      render :text => Payments.error_text(params[:error])
+    end
+
+    def ok
+      render :text => 'Payment OK'
+    end
+
+    def report
+      status, transaction = Payments[params[:pos_id]].get params[:session_id]
+      if status == 'OK'
+        if transaction.trans_status == '99'
+          # paid, money received
+        else
+          # other stuff
+        end
+      end
+      render :text => 'OK'
+    end
+  end
+
+Cancelling and confirming transaction is similar to getting transaction state:
+
+  status, transaction = Payments[params[:pos_id]].cancel params[:session_id]
+  status, transaction = Payments[params[:pos_id]].confirm params[:session_id]
 
 == Copyright
 

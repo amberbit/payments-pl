@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>payments-pl 0.1.0
+</title>
+<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html" title="Index">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><div id='filecontents'><h1>payments-pl</h1>
+<p>
+Simple library for handling payments via platnosci.pl
+</p>
+<h2>Features</h2>
+<ul>
+<li>Simple configuration (multiple POS-es)
+
+</li>
+<li>Transactions: create, get state, confirm, cancel
+
+</li>
+<li>View helper for generating payment form
+
+</li>
+</ul>
+<h2>Installation</h2>
+<p>
+Install gem:
+</p>
+<pre class="code">
+  <span class='sudo identifier id'>sudo</span> <span class='gem identifier id'>gem</span> <span class='install identifier id'>install</span> <span class='payments identifier id'>payments</span><span class='minus op'>-</span><span class='pl identifier id'>pl</span>
+</pre>
+<p>
+And add it n your environment.rb file:
+</p>
+<pre class="code">
+  <span class='config identifier id'>config</span><span class='dot token'>.</span><span class='gem identifier id'>gem</span> <span class='string val'>'payments-pl'</span><span class='comma token'>,</span> <span class='symbol val'>:lib</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'payments_pl'</span>
+</pre>
+<h2>Configuration</h2>
+<p>
+First add POS informations in config/payments.yml file:
+</p>
+<pre class="code">
+  <span class='bank identifier id'>bank</span><span class='colon op'>:</span>
+    <span class='pos_id identifier id'>pos_id</span><span class='colon op'>:</span> <span class='XXX constant id'>XXX</span>
+    <span class='pos_auth_key identifier id'>pos_auth_key</span><span class='colon op'>:</span> <span class='XXX constant id'>XXX</span>
+    <span class='key1 identifier id'>key1</span><span class='colon op'>:</span> <span class='XXX constant id'>XXX</span>
+    <span class='key2 identifier id'>key2</span><span class='colon op'>:</span> <span class='XXX constant id'>XXX</span>
+    <span class='type identifier id'>type</span><span class='colon op'>:</span> <span class='express_gateway identifier id'>express_gateway</span>
+
+  <span class='sms identifier id'>sms</span><span class='colon op'>:</span>
+    <span class='pos_id identifier id'>pos_id</span><span class='colon op'>:</span> <span class='XXX constant id'>XXX</span>
+    <span class='pos_auth_key identifier id'>pos_auth_key</span><span class='colon op'>:</span> <span class='XXX constant id'>XXX</span>
+    <span class='key1 identifier id'>key1</span><span class='colon op'>:</span> <span class='XXX constant id'>XXX</span>
+    <span class='key2 identifier id'>key2</span><span class='colon op'>:</span> <span class='XXX constant id'>XXX</span>
+    <span class='type identifier id'>type</span><span class='colon op'>:</span> <span class='sms_premium identifier id'>sms_premium</span>
+</pre>
+<p>
+Next add some routes so platnosci.pl can send messages to your application:
+</p>
+<pre class="code">
+  <span class='map identifier id'>map</span><span class='dot token'>.</span><span class='connect identifier id'>connect</span> <span class='string val'>'/payments/ok'</span><span class='comma token'>,</span>     <span class='symbol val'>:controller</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'payments'</span><span class='comma token'>,</span> <span class='symbol val'>:action</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'ok'</span>
+  <span class='map identifier id'>map</span><span class='dot token'>.</span><span class='connect identifier id'>connect</span> <span class='string val'>'/payments/error'</span><span class='comma token'>,</span>  <span class='symbol val'>:controller</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'payments'</span><span class='comma token'>,</span> <span class='symbol val'>:action</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'error'</span>
+  <span class='map identifier id'>map</span><span class='dot token'>.</span><span class='connect identifier id'>connect</span> <span class='string val'>'/payments/report'</span><span class='comma token'>,</span> <span class='symbol val'>:controller</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'payments'</span><span class='comma token'>,</span> <span class='symbol val'>:action</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'report'</span>
+</pre>
+<p>
+These urls must be the same as those you entered on platnosci.pl site.
+</p>
+<h2>Usage</h2>
+<p>
+Creating new transaction in controller:
+</p>
+<pre class="code">
+  <span class='def def kw'>def</span> <span class='some_action identifier id'>some_action</span>
+    <span class='@transaction ivar id'>@transaction</span> <span class='assign token'>=</span> <span class='Payments constant id'>Payments</span><span class='lbrack token'>[</span><span class='string val'>'bank'</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='new_transaction identifier id'>new_transaction</span><span class='lparen token'>(</span><span class='symbol val'>:amount</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='integer val'>100</span><span class='comma token'>,</span> <span class='symbol val'>:desc</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'Abonament'</span><span class='comma token'>,</span> <span class='symbol val'>:client_ip</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='request identifier id'>request</span><span class='dot token'>.</span><span class='remote_addr identifier id'>remote_addr</span><span class='comma token'>,</span> <span class='symbol val'>:js</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'0'</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+</pre>
+<p>
+Rendering payment form:
+</p>
+<pre class="code">
+  <span class='minus op'>-</span> <span class='form_tag identifier id'>form_tag</span> <span class='@transaction ivar id'>@transaction</span><span class='dot token'>.</span><span class='new_url identifier id'>new_url</span> <span class='do do kw'>do</span>
+    <span class='assign token'>=</span> <span class='transaction_hidden_fields identifier id'>transaction_hidden_fields</span> <span class='@transaction ivar id'>@transaction</span>
+    <span class='assign token'>=</span> <span class='submit_tag identifier id'>submit_tag</span> <span class='string val'>'Pay'</span>
+</pre>
+<p>
+Controller for receiving messages from platnosci.pl:
+</p>
+<pre class="code">
+  <span class='class class kw'>class</span> <span class='PaymentsController constant id'>PaymentsController</span> <span class='lt op'>&lt;</span> <span class='ApplicationController constant id'>ApplicationController</span>
+    <span class='skip_before_filter identifier id'>skip_before_filter</span> <span class='symbol val'>:verify_authenticity_token</span>
+
+    <span class='def def kw'>def</span> <span class='error identifier id'>error</span>
+      <span class='render identifier id'>render</span> <span class='symbol val'>:text</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='Payments constant id'>Payments</span><span class='dot token'>.</span><span class='error_text identifier id'>error_text</span><span class='lparen token'>(</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:error</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+
+    <span class='def def kw'>def</span> <span class='ok identifier id'>ok</span>
+      <span class='render identifier id'>render</span> <span class='symbol val'>:text</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'Payment OK'</span>
+    <span class='end end kw'>end</span>
+
+    <span class='def def kw'>def</span> <span class='report identifier id'>report</span>
+      <span class='status identifier id'>status</span><span class='comma token'>,</span> <span class='transaction identifier id'>transaction</span> <span class='assign token'>=</span> <span class='Payments constant id'>Payments</span><span class='lbrack token'>[</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:pos_id</span><span class='rbrack token'>]</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='get identifier id'>get</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:session_id</span><span class='rbrack token'>]</span>
+      <span class='if if kw'>if</span> <span class='status identifier id'>status</span> <span class='eq op'>==</span> <span class='string val'>'OK'</span>
+        <span class='if if kw'>if</span> <span class='transaction identifier id'>transaction</span><span class='dot token'>.</span><span class='trans_status identifier id'>trans_status</span> <span class='eq op'>==</span> <span class='string val'>'99'</span>
+          <span class='comment val'># paid, money received</span>
+        <span class='else else kw'>else</span>
+          <span class='comment val'># other stuff</span>
+        <span class='end end kw'>end</span>
+      <span class='end end kw'>end</span>
+      <span class='render identifier id'>render</span> <span class='symbol val'>:text</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'OK'</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+</pre>
+<p>
+Cancelling and confirming transaction is similar to getting transaction
+state:
+</p>
+<pre class="code">
+  <span class='status identifier id'>status</span><span class='comma token'>,</span> <span class='transaction identifier id'>transaction</span> <span class='assign token'>=</span> <span class='Payments constant id'>Payments</span><span class='lbrack token'>[</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:pos_id</span><span class='rbrack token'>]</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='cancel identifier id'>cancel</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:session_id</span><span class='rbrack token'>]</span>
+  <span class='status identifier id'>status</span><span class='comma token'>,</span> <span class='transaction identifier id'>transaction</span> <span class='assign token'>=</span> <span class='Payments constant id'>Payments</span><span class='lbrack token'>[</span><span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:pos_id</span><span class='rbrack token'>]</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='confirm identifier id'>confirm</span> <span class='params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:session_id</span><span class='rbrack token'>]</span>
+</pre>
+<h2>Copyright</h2>
+<p>
+Copyright &#169; 2010 Michał Młoźniak. See LICENSE for details.
+</p>
+</div></div>
+    
+    <div id="footer">
+  Generated on Tue Aug 17 16:13:27 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.8 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>
