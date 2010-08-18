@@ -43,18 +43,25 @@ module Payments
     999 => 'Inny błąd krytyczny - prosimy o kontakt'
   }
 
+  POS_TYPES = ['default', 'sms_premium']
+  ENCODINGS = ['ISO', 'WIN', 'UTF']
+
   @@pos_table = {}
 
   class SignatureInvalid < StandardError; end
   class PosNotFound < StandardError; end
   class RequestFailed < StandardError; end
+  class PosInvalid < StandardError; end
 
   class << self
     def init
-      config = YAML.load_file(File.join(RAILS_ROOT, 'config', 'payments.yml'))
-      config.each do |k, v|
-        pos = Pos.new(v)
-        @@pos_table[k] = pos
+      filename = File.join(Rails.root, 'config', 'payments.yml')
+      if File.exist?(filename)
+        config = YAML.load_file(filename)
+        config.each do |k, v|
+          pos = Pos.new(v)
+          @@pos_table[k] = pos
+        end
       end
     end
 

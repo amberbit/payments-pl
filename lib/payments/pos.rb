@@ -13,6 +13,13 @@ module Payments
       @key2         = options[:key2]
       @type         = options[:type] || 'default'
       @encoding     = options[:encoding] || 'UTF'
+
+      raise PosInvalid.new('Missing pos_id parameter') if @pos_id.blank?
+      raise PosInvalid.new('Missing pos_auth_key parameter') if @pos_auth_key.blank?
+      raise PosInvalid.new('Missing key1 parameter') if @key1.blank?
+      raise PosInvalid.new('Missing key2 parameter') if @key2.blank?
+      raise PosInvalid.new("Invalid type parameter, expected one of these: #{Payments::POS_TYPES.join(', ')}") unless Payments::POS_TYPES.include?(@type)
+      raise PosInvalid.new("Invalid encoding parameter, expected one of these: #{Payments::ENCODINGS.join(', ')}") unless Payments::ENCODINGS.include?(@encoding)
     end
 
     def new_transaction(options = {})
