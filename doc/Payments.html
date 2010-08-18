@@ -74,7 +74,7 @@
     
    
     
-      <strong class="classes">Classes:</strong> <a href="Payments/Pos.html" title="Payments::Pos (class)">Pos</a>, <a href="Payments/PosNotFound.html" title="Payments::PosNotFound (class)">PosNotFound</a>, <a href="Payments/RequestFailed.html" title="Payments::RequestFailed (class)">RequestFailed</a>, <a href="Payments/SignatureInvalid.html" title="Payments::SignatureInvalid (class)">SignatureInvalid</a>, <a href="Payments/Transaction.html" title="Payments::Transaction (class)">Transaction</a>
+      <strong class="classes">Classes:</strong> <a href="Payments/Pos.html" title="Payments::Pos (class)">Pos</a>, <a href="Payments/PosInvalid.html" title="Payments::PosInvalid (class)">PosInvalid</a>, <a href="Payments/PosNotFound.html" title="Payments::PosNotFound (class)">PosNotFound</a>, <a href="Payments/RequestFailed.html" title="Payments::RequestFailed (class)">RequestFailed</a>, <a href="Payments/SignatureInvalid.html" title="Payments::SignatureInvalid (class)">SignatureInvalid</a>, <a href="Payments/Transaction.html" title="Payments::Transaction (class)">Transaction</a>
     
   
 </p>
@@ -125,6 +125,18 @@
 <span class='rbrace token'>}</span>
 </pre></dd>
       
+        <dt id="POS_TYPES-constant" class="">POS_TYPES =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrack token'>[</span><span class='string val'>'default'</span><span class='comma token'>,</span> <span class='string val'>'sms_premium'</span><span class='rbrack token'>]</span>
+</pre></dd>
+      
+        <dt id="ENCODINGS-constant" class="">ENCODINGS =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrack token'>[</span><span class='string val'>'ISO'</span><span class='comma token'>,</span> <span class='string val'>'WIN'</span><span class='comma token'>,</span> <span class='string val'>'UTF'</span><span class='rbrack token'>]</span>
+</pre></dd>
+      
         <dt id="pos_table-classvariable" class="">@@pos_table =
           
         </dt>
@@ -160,7 +172,10 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>
+Combined accessor, returns Pos object with given pos_id or name.
+</p>
+</div></span>
   
 </li>
 
@@ -168,7 +183,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#error_text-class_method" title="error_text (class method)">+ (Object) <strong>error_text</strong>(error_code) </a>
+      <a href="#error_text-class_method" title="error_text (class method)">+ (String) <strong>error_text</strong>(error_code) </a>
     
 
     
@@ -181,7 +196,10 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>
+Returns error explanation for given error code.
+</p>
+</div></span>
   
 </li>
 
@@ -202,7 +220,10 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>
+Returns Pos object with given pos_id, the same as in payments.yml file.
+</p>
+</div></span>
   
 </li>
 
@@ -223,7 +244,10 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>
+Returns Pos object with given name, the same as in payments.yml file.
+</p>
+</div></span>
   
 </li>
 
@@ -244,7 +268,10 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>
+Loads payments.yml file and creates specified Pos objects.
+</p>
+</div></span>
   
 </li>
 
@@ -265,18 +292,69 @@
   
 
   
-</p><table class="source_code">
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Combined accessor, returns Pos object with given pos_id or name
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='type'>(<tt>String</tt>, <tt>Integer</tt>)</span>
+      
+      
+        <span class='name'>name_or_id</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+name or pos_id of Pos
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+the Pos object
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-61
-62
-63</pre>
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/payments_pl.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'lib/payments_pl.rb', line 74</span>
 
 <span class='def def kw'>def</span> <span class='aref op'>[]</span><span class='lparen token'>(</span><span class='name_or_id identifier id'>name_or_id</span><span class='rparen token'>)</span>
   <span class='get_pos_by_name identifier id'>get_pos_by_name</span><span class='lparen token'>(</span><span class='name_or_id identifier id'>name_or_id</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='get_pos_by_id identifier id'>get_pos_by_id</span><span class='lparen token'>(</span><span class='name_or_id identifier id'>name_or_id</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='raise identifier id'>raise</span><span class='lparen token'>(</span><span class='PosNotFound constant id'>PosNotFound</span><span class='rparen token'>)</span>
@@ -290,22 +368,67 @@
       <div class="method_details ">
   <p class="signature " id="error_text-class_method">
   
-    + (<tt>Object</tt>) <strong>error_text</strong>(error_code) 
+    + (<tt>String</tt>) <strong>error_text</strong>(error_code) 
   
 
   
-</p><table class="source_code">
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns error explanation for given error code
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <span class='name'>error_code</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+string with error message
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-77
-78
-79</pre>
+102
+103
+104</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/payments_pl.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'lib/payments_pl.rb', line 102</span>
 
 <span class='def def kw'>def</span> <span class='error_text identifier id'>error_text</span><span class='lparen token'>(</span><span class='error_code identifier id'>error_code</span><span class='rparen token'>)</span>
   <span class='ERRORS constant id'>ERRORS</span><span class='lbrack token'>[</span><span class='error_code identifier id'>error_code</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span><span class='rbrack token'>]</span>
@@ -323,22 +446,73 @@
   
 
   
-</p><table class="source_code">
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns Pos object with given pos_id, the same as in payments.yml file
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <span class='name'>id</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+pos_id of Pos
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+the Pos object
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-69
-70
-71
-72
-73
-74
-75</pre>
+90
+91
+92
+93
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/payments_pl.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'lib/payments_pl.rb', line 90</span>
 
 <span class='def def kw'>def</span> <span class='get_pos_by_id identifier id'>get_pos_by_id</span><span class='lparen token'>(</span><span class='id identifier id'>id</span><span class='rparen token'>)</span>
   <span class='id identifier id'>id</span> <span class='assign token'>=</span> <span class='id identifier id'>id</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span>
@@ -360,18 +534,69 @@
   
 
   
-</p><table class="source_code">
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns Pos object with given name, the same as in payments.yml file
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <span class='name'>name</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+name of Pos
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+the Pos object
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-65
-66
-67</pre>
+82
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/payments_pl.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'lib/payments_pl.rb', line 82</span>
 
 <span class='def def kw'>def</span> <span class='get_pos_by_name identifier id'>get_pos_by_name</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='rparen token'>)</span>
   <span class='@@pos_table ivar id'>@@pos_table</span><span class='lbrack token'>[</span><span class='name identifier id'>name</span><span class='rbrack token'>]</span>
@@ -389,28 +614,45 @@
   
 
   
-</p><table class="source_code">
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Loads payments.yml file and creates specified Pos objects
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-53
-54
-55
-56
-57
-58
-59</pre>
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/payments_pl.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'lib/payments_pl.rb', line 59</span>
 
 <span class='def def kw'>def</span> <span class='init identifier id'>init</span>
-  <span class='config identifier id'>config</span> <span class='assign token'>=</span> <span class='YAML constant id'>YAML</span><span class='dot token'>.</span><span class='load_file identifier id'>load_file</span><span class='lparen token'>(</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='RAILS_ROOT constant id'>RAILS_ROOT</span><span class='comma token'>,</span> <span class='string val'>'config'</span><span class='comma token'>,</span> <span class='string val'>'payments.yml'</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
-  <span class='config identifier id'>config</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='k identifier id'>k</span><span class='comma token'>,</span> <span class='v identifier id'>v</span><span class='bitor op'>|</span>
-    <span class='pos identifier id'>pos</span> <span class='assign token'>=</span> <span class='Pos constant id'>Pos</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='v identifier id'>v</span><span class='rparen token'>)</span>
-    <span class='@@pos_table ivar id'>@@pos_table</span><span class='lbrack token'>[</span><span class='k identifier id'>k</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='pos identifier id'>pos</span>
+  <span class='filename identifier id'>filename</span> <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='Rails constant id'>Rails</span><span class='dot token'>.</span><span class='root identifier id'>root</span><span class='comma token'>,</span> <span class='string val'>'config'</span><span class='comma token'>,</span> <span class='string val'>'payments.yml'</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='exist? fid id'>exist?</span><span class='lparen token'>(</span><span class='filename identifier id'>filename</span><span class='rparen token'>)</span>
+    <span class='config identifier id'>config</span> <span class='assign token'>=</span> <span class='YAML constant id'>YAML</span><span class='dot token'>.</span><span class='load_file identifier id'>load_file</span><span class='lparen token'>(</span><span class='filename identifier id'>filename</span><span class='rparen token'>)</span>
+    <span class='config identifier id'>config</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='k identifier id'>k</span><span class='comma token'>,</span> <span class='v identifier id'>v</span><span class='bitor op'>|</span>
+      <span class='pos identifier id'>pos</span> <span class='assign token'>=</span> <span class='Pos constant id'>Pos</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='v identifier id'>v</span><span class='rparen token'>)</span>
+      <span class='@@pos_table ivar id'>@@pos_table</span><span class='lbrack token'>[</span><span class='k identifier id'>k</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='pos identifier id'>pos</span>
+    <span class='end end kw'>end</span>
   <span class='end end kw'>end</span>
 <span class='end end kw'>end</span>
 </pre>
@@ -424,7 +666,7 @@
 </div>
     
     <div id="footer">
-  Generated on Tue Aug 17 16:13:28 2010 by 
+  Generated on Wed Aug 18 22:12:45 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
   0.5.8 (ruby-1.8.7).
 </div>

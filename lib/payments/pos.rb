@@ -4,6 +4,9 @@ module Payments
   class Pos
     attr_reader :pos_id, :pos_auth_key, :key1, :key2, :type, :encoding
 
+    # Creates new Pos instance
+    # @param [Hash] options options hash
+    # @return [Object] Pos object
     def initialize(options)
       options.symbolize_keys!
 
@@ -22,6 +25,9 @@ module Payments
       raise PosInvalid.new("Invalid encoding parameter, expected one of these: #{Payments::ENCODINGS.join(', ')}") unless Payments::ENCODINGS.include?(@encoding)
     end
 
+    # Creates new transaction
+    # @param [Hash] options options hash for new transaction
+    # @return [Object] Transaction object
     def new_transaction(options = {})
       options.stringify_keys!
 
@@ -32,15 +38,29 @@ module Payments
       Transaction.new(options)
     end
 
+    # Returns new transaction url, depending on Pos type
+    # @return [String] new transaction url
     def new_transaction_url
-      if @type == 'default'
-        return "https://www.platnosci.pl/paygw/#{@encoding}/NewPayment"
-      elsif @type == 'sms_premium'
+      if @type == 'sms_premium'
         return "https://www.platnosci.pl/paygw/#{@encoding}/NewSMS"
       else
-        return nil
+        return "https://www.platnosci.pl/paygw/#{@encoding}/NewPayment"
       end
     end
+
+    def get(session_id)
+      send_request(:get, session_id)
+    end
+
+    def confirm(session_id)
+      send_request(:confirm, session_id)
+    end
+
+    def cancel(session_id)
+      send_request(:cancel, session_id)
+    end
+    
+    protected
 
     def path_for(method)
       case method
@@ -63,18 +83,6 @@ module Payments
         sig = encrypt(t.trans_pos_id, t.trans_session_id, t.trans_ts, @key2)
       end
       return sig == t.trans_sig
-    end
-
-    def get(session_id)
-      send_request(:get, session_id)
-    end
-
-    def confirm(session_id)
-      send_request(:confirm, session_id)
-    end
-
-    def cancel(session_id)
-      send_request(:cancel, session_id)
     end
 
     def send_request(method, session_id)

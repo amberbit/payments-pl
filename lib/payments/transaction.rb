@@ -34,10 +34,14 @@ module Payments
     column :sig,            :string
     column :ts,             :string
 
+    # Returns Pos object for current transaction
+    # @return [Object] Pos object
     def pos
       Payments[pos_id]
     end
 
+    # Returns url for new payment, used in payment form
+    # @return [String] new payment url
     def new_url
       pos.new_transaction_url
     end

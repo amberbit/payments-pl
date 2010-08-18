@@ -54,6 +54,8 @@ module Payments
   class PosInvalid < StandardError; end
 
   class << self
+
+    # Loads payments.yml file and creates specified Pos objects
     def init
       filename = File.join(Rails.root, 'config', 'payments.yml')
       if File.exist?(filename)
@@ -65,14 +67,26 @@ module Payments
       end
     end
 
+    # Combined accessor, returns Pos object with given pos_id or name
+    #
+    # @param [String, Integer] name_or_id name or pos_id of Pos
+    # @return [Object] the Pos object
     def [](name_or_id)
       get_pos_by_name(name_or_id) || get_pos_by_id(name_or_id) || raise(PosNotFound)
     end
 
+    # Returns Pos object with given name, the same as in payments.yml file
+    #
+    # @param [String] name name of Pos
+    # @return [Object] the Pos object
     def get_pos_by_name(name)
       @@pos_table[name]
     end
 
+    # Returns Pos object with given pos_id, the same as in payments.yml file
+    #
+    # @param [Integer] id pos_id of Pos
+    # @return [Object] the Pos object
     def get_pos_by_id(id)
       id = id.to_i
       @@pos_table.each do |k, v|
@@ -81,6 +95,10 @@ module Payments
       nil
     end
 
+    # Returns error explanation for given error code
+    #
+    # @param [Integer] error_code
+    # @return [String] string with error message
     def error_text(error_code)
       ERRORS[error_code.to_i]
     end

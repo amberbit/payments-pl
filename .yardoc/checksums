@@ -1,0 +1,6 @@
+LICENSE 05ed4a9e26f94a5963bf0224bff72332537a67bb
+lib/payments_pl.rb f1df4334ffb3c35af984fef11ccfda314c8a3a18
+lib/payments/transaction.rb 6b8626b3484b4875c60072522155364b61f17256
+lib/payments/pos.rb 0193c7441cb1d10901ac02bdfc84f70b577362b2
+README.rdoc 53b5b5c9d3c9477963deaf6a92bf18431eb1b296
+lib/payments/view_helpers.rb bf278b4e619a35aa333d0882e74adcb9b6cc4ed8
