@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{payments-pl}
-  s.version = "0.4.0"
+  s.version = "0.4.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Micha\305\202 M\305\202o\305\272niak"]
@@ -48,31 +48,22 @@ Gem::Specification.new do |s|
      "lib/payments/transaction.rb",
      "lib/payments/view_helpers.rb",
      "lib/payments_pl.rb",
-     "payments-pl.gemspec",
-     "test/helper.rb",
-     "test/test_payments-pl.rb"
+     "payments-pl.gemspec"
   ]
   s.homepage = %q{http://github.com/ronin/payments-pl}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Simple library for payments via platnosci.pl}
-  s.test_files = [
-    "test/test_payments-pl.rb",
-     "test/helper.rb"
-  ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 0"])
     else
-      s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
     end
   else
-    s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
   end
 end
 

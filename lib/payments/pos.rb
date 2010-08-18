@@ -11,7 +11,7 @@ module Payments
       @pos_auth_key = options[:pos_auth_key]
       @key1         = options[:key1]
       @key2         = options[:key2]
-      @type         = options[:type] || 'express_gateway'
+      @type         = options[:type] || 'default'
       @encoding     = options[:encoding] || 'UTF'
     end
 
@@ -26,7 +26,7 @@ module Payments
     end
 
     def new_transaction_url
-      if @type == 'express_gateway'
+      if @type == 'default'
         return "https://www.platnosci.pl/paygw/#{@encoding}/NewPayment"
       elsif @type == 'sms_premium'
         return "https://www.platnosci.pl/paygw/#{@encoding}/NewSMS"
