@@ -27,7 +27,7 @@ First add POS informations in config/payments.yml file:
     pos_auth_key: XXX
     key1: XXX
     key2: XXX
-    type: express_gateway
+    type: default
 
   sms:
     pos_id: XXX
