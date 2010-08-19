@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{payments-pl}
-  s.version = "0.4.4"
+  s.version = "0.4.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Micha\305\202 M\305\202o\305\272niak"]
