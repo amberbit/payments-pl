@@ -16,6 +16,7 @@ module Payments
       @key2         = options[:key2]
       @type         = options[:type] || 'default'
       @encoding     = options[:encoding] || 'UTF'
+      @test_payment = !!options[:test_payment] || false
 
       raise PosInvalid.new('Missing pos_id parameter') if @pos_id.blank?
       raise PosInvalid.new('Missing pos_auth_key parameter') if @pos_auth_key.blank?
@@ -29,11 +30,12 @@ module Payments
     # @param [Hash] options options hash for new transaction
     # @return [Object] Transaction object
     def new_transaction(options = {})
-      options.stringify_keys!
+      options = options.dup.stringify_keys!
 
       options[:pos_id]        = @pos_id
       options[:pos_auth_key]  = @pos_auth_key
       options[:session_id]    ||= (Time.now.to_f * 100).to_i
+      options[:pay_type]      = 't' if @test_payment && @type == 'default'
 
       Transaction.new(options)
     end
