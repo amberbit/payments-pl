@@ -17,6 +17,7 @@ module Payments
       @type         = options[:type] || 'default'
       @encoding     = options[:encoding] || 'UTF'
       @test_payment = !!options[:test_payment] || false
+      @add_sig      = !!options[:add_sig] || false
 
       raise PosInvalid.new('Missing pos_id parameter') if @pos_id.blank?
       raise PosInvalid.new('Missing pos_auth_key parameter') if @pos_auth_key.blank?
@@ -30,12 +31,18 @@ module Payments
     # @param [Hash] options options hash for new transaction
     # @return [Object] Transaction object
     def new_transaction(options = {})
-      options = options.dup.stringify_keys!
+      options = options.dup.symbolize_keys!
 
       options[:pos_id]        = @pos_id
       options[:pos_auth_key]  = @pos_auth_key
       options[:session_id]    ||= (Time.now.to_f * 100).to_i
       options[:pay_type]      = 't' if @test_payment && @type == 'default'
+
+      if @add_sig
+        ts, sig = generate_sig(options)
+        options[:ts] = ts
+        options[:sig] = sig
+      end
 
       Transaction.new(options)
     end
@@ -64,6 +71,24 @@ module Payments
     
     protected
 
+    def generate_sig(options)
+      ts = (Time.now.to_f * 1000).to_i
+      sig = encrypt(options[:pos_id], options[:pay_type], options[:session_id],
+        options[:pos_auth_key], options[:amount], options[:desc], options[:desc2],
+        options[:order_id], options[:first_name], options[:last_name],
+        options[:payback_login], options[:street], options[:street_hn],
+        options[:street_an], options[:city], options[:post_code],
+        options[:country], options[:email], options[:phone], options[:language],
+        options[:client_ip], ts, @key1)
+
+      [ts, sig]
+    end
+
+    def encrypt(*params)
+      puts params.join
+      Digest::MD5.hexdigest(params.join)
+    end
+
     def path_for(method)
       case method
       when :get then "/paygw/#{@encoding}/Payment/get/txt"
@@ -71,10 +96,6 @@ module Payments
       when :cancel then "/paygw/#{@encoding}/Payment/cancel/txt"
       else nil
       end
-    end
-
-    def encrypt(*params)
-      Digest::MD5.hexdigest(params.join)
     end
 
     def verify(t)
