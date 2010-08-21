@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Micha\305\202 M\305\202o\305\272niak"]
-  s.date = %q{2010-08-19}
+  s.date = %q{2010-08-21}
   s.description = %q{Simple library for payments via platnosci.pl}
   s.email = %q{m.mlozniak@gmail.com}
   s.extra_rdoc_files = [
@@ -88,11 +88,14 @@ Gem::Specification.new do |s|
      "doc/js/jquery.js",
      "doc/method_list.html",
      "doc/top-level-namespace.html",
+     "lib/payments/hash_ext.rb",
      "lib/payments/pos.rb",
+     "lib/payments/rails.rb",
      "lib/payments/transaction.rb",
      "lib/payments/view_helpers.rb",
      "lib/payments_pl.rb",
-     "payments-pl.gemspec"
+     "payments-pl.gemspec",
+     "rails/init.rb"
   ]
   s.homepage = %q{http://github.com/ronin/payments-pl}
   s.rdoc_options = ["--charset=UTF-8"]
