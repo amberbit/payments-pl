@@ -1,3 +1,6 @@
+require 'yaml'
+require 'active_support'
+
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'payments/pos'
@@ -56,8 +59,7 @@ module Payments
   class << self
 
     # Loads payments.yml file and creates specified Pos objects
-    def init
-      filename = File.join(Rails.root, 'config', 'payments.yml')
+    def init(filename)
       if File.exist?(filename)
         config = YAML.load_file(filename)
         config.each do |k, v|
@@ -104,6 +106,3 @@ module Payments
     end
   end
 end
-
-Payments.init
-ActionView::Base.send(:include, Payments::ViewHelpers)

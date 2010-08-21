@@ -19,10 +19,10 @@ module Payments
       @test_payment = !!options[:test_payment] || false
       @add_sig      = !!options[:add_sig] || false
 
-      raise PosInvalid.new('Missing pos_id parameter') if @pos_id.blank?
-      raise PosInvalid.new('Missing pos_auth_key parameter') if @pos_auth_key.blank?
-      raise PosInvalid.new('Missing key1 parameter') if @key1.blank?
-      raise PosInvalid.new('Missing key2 parameter') if @key2.blank?
+      raise PosInvalid.new('Missing pos_id parameter') if @pos_id.nil? || @pos_id == ''
+      raise PosInvalid.new('Missing pos_auth_key parameter') if @pos_auth_key.nil? || @pos_auth_key == ''
+      raise PosInvalid.new('Missing key1 parameter') if @key1.nil? || @key1 == ''
+      raise PosInvalid.new('Missing key2 parameter') if @key2.nil? || @key2 == ''
       raise PosInvalid.new("Invalid type parameter, expected one of these: #{Payments::POS_TYPES.join(', ')}") unless Payments::POS_TYPES.include?(@type)
       raise PosInvalid.new("Invalid encoding parameter, expected one of these: #{Payments::ENCODINGS.join(', ')}") unless Payments::ENCODINGS.include?(@encoding)
     end
