@@ -1,1 +1,1 @@
-require 'payments/rails'
+require 'payments_pl/rails'

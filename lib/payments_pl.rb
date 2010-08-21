@@ -3,9 +3,9 @@ require 'active_support'
 
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
-require 'payments/pos'
-require 'payments/transaction'
-require 'payments/view_helpers'
+require 'payments_pl/pos'
+require 'payments_pl/transaction'
+require 'payments_pl/view_helpers'
 
 module Payments
   ERRORS = {
