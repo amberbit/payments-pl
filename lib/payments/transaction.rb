@@ -1,38 +1,17 @@
 module Payments
-  class Transaction < ActiveRecord::Base
-    def self.columns
-      @columns ||=[]
-    end
+  class Transaction
+    attr_accessor :pos_id, :pos_auth_key, :pay_type, :session_id, :amount, :desc,
+      :order_id, :desc2, :trs_desc, :first_name, :last_name, :street, :street_hn,
+      :street_an, :city, :post_code, :country, :email, :phone, :language, :client_ip,
+      :js, :payback_login, :sig, :ts
 
-    def self.column(name, sql_type = nil, default = nil, null = true)
-      columns << ActiveRecord::ConnectionAdapters::Column.new(name.to_s, default, sql_type.to_s, null)
-    end
+    def initialize(options)
+      options.stringify_keys!
 
-    column :pos_id,         :integer
-    column :pos_auth_key,   :string
-    column :pay_type,       :string
-    column :session_id,     :text
-    column :amount,         :integer
-    column :desc,           :text
-    column :order_id,       :integer
-    column :desc2,          :text
-    column :trs_desc,       :string
-    column :first_name,     :string
-    column :last_name,      :string
-    column :street,         :string
-    column :street_hn,      :string
-    column :street_an,      :string
-    column :city,           :string
-    column :post_code,      :string
-    column :country,        :string
-    column :email,          :string
-    column :phone,          :string
-    column :language,       :string
-    column :client_ip,      :string
-    column :js,             :string
-    column :payback_login,  :string
-    column :sig,            :string
-    column :ts,             :string
+      options.each do |k, v|
+        send("#{k}=", v)
+      end
+    end
 
     # Returns Pos object for current transaction
     # @return [Object] Pos object
