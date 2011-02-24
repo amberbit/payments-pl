@@ -86,7 +86,6 @@ module PaymentsPl
     end
 
     def encrypt(*params)
-      puts params.join
       Digest::MD5.hexdigest(params.join)
     end
 

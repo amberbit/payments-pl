@@ -12,7 +12,7 @@ module PaymentsPl
         html << hidden_field_tag(field, value) unless value.blank?
       end
 
-      html
+      html.html_safe
     end
   end
 end
