@@ -1,4 +1,4 @@
-module Payments
+module PaymentsPl
   module ViewHelpers
     def transaction_hidden_fields(transaction)
       html = ""

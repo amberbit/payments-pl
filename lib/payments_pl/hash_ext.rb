@@ -1,4 +1,4 @@
-module Payments
+module PaymentsPl
   module HashExt
     def stringify_keys
       inject({}) do |options, (key, value)|
@@ -28,5 +28,5 @@ module Payments
 end
 
 class Hash
-  include Payments::HashExt
+  include PaymentsPl::HashExt
 end

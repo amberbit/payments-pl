@@ -7,7 +7,7 @@ require 'payments_pl/pos'
 require 'payments_pl/transaction'
 require 'payments_pl/view_helpers'
 
-module Payments
+module PaymentsPl
   ERRORS = {
     100 => 'Brak parametru pos_id',
     101 => 'Brak parametru session_id',

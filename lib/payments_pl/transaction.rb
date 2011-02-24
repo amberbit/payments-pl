@@ -1,4 +1,4 @@
-module Payments
+module PaymentsPl
   class Transaction
     attr_accessor :pos_id, :pos_auth_key, :pay_type, :session_id, :amount, :desc,
       :order_id, :desc2, :trs_desc, :first_name, :last_name, :street, :street_hn,
@@ -16,7 +16,7 @@ module Payments
     # Returns Pos object for current transaction
     # @return [Object] Pos object
     def pos
-      Payments[pos_id]
+      PaymentsPl[pos_id]
     end
 
     # Returns url for new payment, used in payment form

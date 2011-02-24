@@ -1,6 +1,6 @@
 require 'ostruct'
 
-module Payments
+module PaymentsPl
   class Pos
     attr_reader :pos_id, :pos_auth_key, :key1, :key2, :type, :encoding
 
@@ -23,8 +23,8 @@ module Payments
       raise PosInvalid.new('Missing pos_auth_key parameter') if @pos_auth_key.nil? || @pos_auth_key == ''
       raise PosInvalid.new('Missing key1 parameter') if @key1.nil? || @key1 == ''
       raise PosInvalid.new('Missing key2 parameter') if @key2.nil? || @key2 == ''
-      raise PosInvalid.new("Invalid type parameter, expected one of these: #{Payments::POS_TYPES.join(', ')}") unless Payments::POS_TYPES.include?(@type)
-      raise PosInvalid.new("Invalid encoding parameter, expected one of these: #{Payments::ENCODINGS.join(', ')}") unless Payments::ENCODINGS.include?(@encoding)
+      raise PosInvalid.new("Invalid type parameter, expected one of these: #{PaymentsPl::POS_TYPES.join(', ')}") unless PaymentsPl::POS_TYPES.include?(@type)
+      raise PosInvalid.new("Invalid encoding parameter, expected one of these: #{PaymentsPl::ENCODINGS.join(', ')}") unless PaymentsPl::ENCODINGS.include?(@encoding)
     end
 
     # Creates new transaction
