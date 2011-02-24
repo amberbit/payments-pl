@@ -75,7 +75,7 @@ module PaymentsPl
     # @param [String, Integer] name_or_id name or pos_id of Pos
     # @return [Object] the Pos object
     def [](name_or_id)
-      get_pos_by_name(name_or_id) || get_pos_by_id(name_or_id) || raise(PosNotFound)
+      get_pos_by_name(name_or_id) || get_pos_by_id(name_or_id) || raise(PosNotFound, name_or_id)
     end
 
     # Returns Pos object with given name, the same as in payments.yml file
