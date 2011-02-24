@@ -1,0 +1,13 @@
+bank1:
+  pos_id: 12345
+  pos_auth_key: "wmC6S5ih"
+  key1: "Pty0qnrouXTZwmC6S5Pty0qnrouXTZwm"
+  key2: "ihZCpwwWSgMPxQfZ1inCYrLPFgvTHZ34"
+  type: default
+
+bank2:
+  pos_id: 23456
+  pos_auth_key: "wmC6S5ih"
+  key1: "Pty0qnrouXTZwmC6S5Pty0qnrouXTZwm"
+  key2: "ihZCpwwWSgMPxQfZ1inCYrLPFgvTHZ34"
+  type: default
