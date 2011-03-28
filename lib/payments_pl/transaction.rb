@@ -1,5 +1,25 @@
+# encoding: UTF-8
+
 module PaymentsPl
   class Transaction
+    module State
+      NEW = 1
+      IN_PROGRESS = 4
+      FINALIZED = 99
+      ERROR = 888
+
+      MESSAGES = {
+        NEW => 'nowa',
+        2 => 'anulowana',
+        3 => 'odrzucona',
+        IN_PROGRESS => 'rozpoczęta',
+        5 => 'oczekuje na odbiór',
+        7 => 'płatność odrzucona, otrzymano środki od klienta po wcześniejszym anulowaniu transakcji, lub nie było możliwości zwrotu środków w sposób automatyczny, sytuacje takie będą monitorowane i wyjaśniane przez zespół Płatności',
+        FINALIZED => 'płatność odebrana - zakończona',
+        ERROR => 'błędny status - prosimy o kontakt'
+      }
+    end
+
     attr_accessor :pos_id, :pos_auth_key, :pay_type, :session_id, :amount, :desc,
       :order_id, :desc2, :trs_desc, :first_name, :last_name, :street, :street_hn,
       :street_an, :city, :post_code, :country, :email, :phone, :language, :client_ip,
