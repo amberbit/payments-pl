@@ -1,5 +1,6 @@
 require 'ostruct'
 require 'active_support/core_ext/hash'
+require 'net/http'
 
 module PaymentsPl
   class Pos
