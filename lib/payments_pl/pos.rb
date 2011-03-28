@@ -59,18 +59,18 @@ module PaymentsPl
       end
     end
 
-    def get(session_id)
-      send_request(:get, session_id)
+    def get(session_id, &block)
+      send_request(:get, session_id, &block)
     end
 
-    def confirm(session_id)
-      send_request(:confirm, session_id)
+    def confirm(session_id, &block)
+      send_request(:confirm, session_id, &block)
     end
 
-    def cancel(session_id)
-      send_request(:cancel, session_id)
+    def cancel(session_id, &block)
+      send_request(:cancel, session_id, &block)
     end
-    
+
     protected
 
     def generate_sig(options)
@@ -109,11 +109,14 @@ module PaymentsPl
       return sig == t.trans_sig
     end
 
+    # accepts a block if you need to set additional options on Net::HTTP object
     def send_request(method, session_id)
       url = path_for(method)
       data = prepare_data(session_id)
       connection = Net::HTTP.new('www.platnosci.pl', 443)
       connection.use_ssl = true
+
+      yield connection if block_given?
 
       response = connection.start do |http|
         post = Net::HTTP::Post.new(url)
