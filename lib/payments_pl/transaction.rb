@@ -4,16 +4,19 @@ module PaymentsPl
   class Transaction
     module State
       NEW = 1
+      CANCELLED = 2
+      REJECTED = 3
       IN_PROGRESS = 4
+      WAITING_FOR_RECEPTION = 5
       FINALIZED = 99
       ERROR = 888
 
       MESSAGES = {
         NEW => 'nowa',
-        2 => 'anulowana',
-        3 => 'odrzucona',
+        CANCELLED => 'anulowana',
+        REJECTED => 'odrzucona',
         IN_PROGRESS => 'rozpoczęta',
-        5 => 'oczekuje na odbiór',
+        WAITING_FOR_RECEPTION => 'oczekuje na odbiór',
         7 => 'płatność odrzucona, otrzymano środki od klienta po wcześniejszym anulowaniu transakcji, lub nie było możliwości zwrotu środków w sposób automatyczny, sytuacje takie będą monitorowane i wyjaśniane przez zespół Płatności',
         FINALIZED => 'płatność odebrana - zakończona',
         ERROR => 'błędny status - prosimy o kontakt'

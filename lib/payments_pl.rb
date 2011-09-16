@@ -74,6 +74,14 @@ module PaymentsPl
     get_pos_by_name(name_or_id) || get_pos_by_id(name_or_id) || raise(PosNotFound, name_or_id)
   end
 
+  # Writer, sets Pos object with given pos_id or name
+  #
+  # @param [String, Integer] name_or_id name or pos_id of Pos
+  # @param [Pos] pos
+  def self.[]=(id_or_name, pos)
+    @@pos_table[id_or_name] = pos
+  end
+
   # Returns Pos object with given name, the same as in payments.yml file
   #
   # @param [String] name name of Pos
