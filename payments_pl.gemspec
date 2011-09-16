@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
 
   s.rdoc_options = ["--charset=UTF-8"]
 
-  s.add_dependency 'activesupport', '~>3.0.0'
+  s.add_dependency 'activesupport', '~>3.1.0'
   s.add_dependency 'i18n', '~>0.6.0'
   s.add_development_dependency 'rspec', '~>2.5.0'
   s.add_development_dependency 'yard', '~>0.6.0'
